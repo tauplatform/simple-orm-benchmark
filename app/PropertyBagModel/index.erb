@@ -1,0 +1,39 @@
+<div class="container-fluid">
+
+  <div class="row page-title">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+      <a href="<%= Rho::Application.startURI %>" class="btn btn-default btn-sm pull-left">Home</a>
+    </div>
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+      <h3 class="text-center">PropertyBag Model</h3>
+    </div>
+  </div>
+
+  <button data-role="delete-records" class="btn btn-block btn-default">Delete all records</button>
+  <br/>
+  <button data-role="create-records" class="btn btn-block btn-default">Create 1000 records</button>
+  <br/>
+
+  <div class="row">
+    <div class="list-group">
+      <li class="list-group-item">Total record count: <%= @total_record_count %></li>
+      <li class="list-group-item">Filtered record count: <%= @filtered_record_count %></li>
+      <li class="list-group-item">Request time: <%= @request_time %></li>
+    </div>
+  </div>
+
+  <script>
+      $("[data-role=create-records]").on('click', function () {
+          var recordCount = 1000;
+          $.post("<%= url_for :action => :create_records %>", {count: recordCount}).done(function () {
+              window.location.reload();
+          })
+      });
+      $("[data-role=delete-records]").on('click', function () {
+          $.post("<%= url_for :action => :delete_records %>").done(function () {
+              window.location.reload();
+          })
+      })
+  </script>
+
+</div>
